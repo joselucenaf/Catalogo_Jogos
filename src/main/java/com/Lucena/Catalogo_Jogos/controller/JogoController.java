@@ -16,7 +16,6 @@ public class JogoController {
 
     @GetMapping("/disponiveis")
     public ResponseEntity<List<JogoDTO>> vitrine() {
-        // Retorna apenas jogos onde quantidadeDisponivel > 0
         return ResponseEntity.ok(jogoService.listarJogosVitrine());
     }
     @PostMapping
