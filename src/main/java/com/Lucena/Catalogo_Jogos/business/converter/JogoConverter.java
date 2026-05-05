@@ -26,4 +26,18 @@ public class JogoConverter {
                 .quantidadeTotal(dto.getQuantidadeDisponivel())
                 .build();
     }
+
+    public Jogo atualizarJogo(JogoDTO dto, Jogo entity) {
+        return Jogo.builder()
+                .id(entity.getId())
+                .nome(dto.getNome() != null ? dto.getNome() : entity.getNome())
+                .descricao(dto.getDescricao() != null ? dto.getDescricao() : entity.getDescricao())
+                .tipo(dto.getTipo() != null ? dto.getTipo() : entity.getTipo())
+                .quantidadeDisponivel(dto.getQuantidadeDisponivel() != null ?
+                dto.getQuantidadeDisponivel() : entity.getQuantidadeDisponivel())
+                .quantidadeTotal(entity.getQuantidadeTotal())
+                .build();
+    }
+
+
 }

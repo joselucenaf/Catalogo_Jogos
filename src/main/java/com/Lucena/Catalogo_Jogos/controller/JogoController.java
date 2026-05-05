@@ -22,4 +22,15 @@ public class JogoController {
     public ResponseEntity<JogoDTO> cadastrarJogo(@RequestBody JogoDTO dto) {
         return ResponseEntity.ok(jogoService.salvarJogo(dto));
     }
+
+    @PutMapping
+    public ResponseEntity<JogoDTO> atualizarJogo(@RequestParam("id") Long id, @RequestBody JogoDTO dto) {
+        return ResponseEntity.ok(jogoService.atualizarJogo(id, dto));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> excluirJogo(@RequestParam("id") Long id) {
+        jogoService.deletaJogoPorId(id);
+        return ResponseEntity.ok().build(); // Use .ok() para seguir seu exemplo anterior
+    }
 }
