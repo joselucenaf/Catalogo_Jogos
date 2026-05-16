@@ -15,21 +15,19 @@ public class JogoService {
     private final JogoRepository jogoRepository;
     private final JogoConverter jogoConverter;
 
-    // Lista apenas jogos com estoque real para a vitrine
     public List<JogoDTO> listarJogosVitrine() {
-        return jogoRepository.findByQuantidadeDisponivelGreaterThan(0) //
+        return jogoRepository.findByQuantidadeDisponivelGreaterThan(0)
                 .stream()
-                .map(jogoConverter::paraDTO) //
+                .map(jogoConverter::paraDTO)
                 .toList();
     }
 
-    // Salva um novo jogo garantindo que não haja duplicidade pelo nome
     public JogoDTO salvarJogo(JogoDTO dto) {
-        if (jogoRepository.existsByNomeIgnoreCase(dto.getNome())) { //[cite: 18]
+        if (jogoRepository.existsByNomeIgnoreCase(dto.getNome())) {
             throw new RuntimeException("Já existe um jogo cadastrado com este nome: " + dto.getNome());
         }
 
-        Jogo jogo = jogoConverter.paraEntity(dto); //[cite: 17]
+        Jogo jogo = jogoConverter.paraEntity(dto);
         return jogoConverter.paraDTO(jogoRepository.save(jogo));
     }
 
@@ -45,5 +43,10 @@ public class JogoService {
             throw new RuntimeException("Não é possível excluir: Jogo não encontrado com o ID: " + id);
         }
         jogoRepository.deleteById(id);
+    }
+    public JogoDTO buscarJogoPorId(Long id) {
+        return jogoRepository.findById(id)
+                .map(jogoConverter::paraDTO)
+                .orElseThrow(() -> new RuntimeException("Jogo não encontrado com o ID: " + id));
     }
 }
