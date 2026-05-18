@@ -6,6 +6,7 @@ import com.Lucena.Catalogo_Jogos.infrastructure.entity.Jogo;
 import com.Lucena.Catalogo_Jogos.infrastructure.repository.JogoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional; // Adicionado
 
 import java.util.List;
 
@@ -26,7 +27,6 @@ public class JogoService {
         if (jogoRepository.existsByNomeIgnoreCase(dto.getNome())) {
             throw new RuntimeException("Já existe um jogo cadastrado com este nome: " + dto.getNome());
         }
-
         Jogo jogo = jogoConverter.paraEntity(dto);
         return jogoConverter.paraDTO(jogoRepository.save(jogo));
     }
@@ -44,9 +44,25 @@ public class JogoService {
         }
         jogoRepository.deleteById(id);
     }
+
     public JogoDTO buscarJogoPorId(Long id) {
         return jogoRepository.findById(id)
                 .map(jogoConverter::paraDTO)
                 .orElseThrow(() -> new RuntimeException("Jogo não encontrado com o ID: " + id));
+    }
+
+    //Decrementa o estoque disponível do jogo na prateleira
+    @Transactional
+    public void decrementarEstoque(Long id) {
+        Jogo jogo = jogoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Jogo não encontrado com o ID: " + id));
+
+        // Impede que a quantidade disponível fique negativa
+        if (jogo.getQuantidadeDisponivel() == null || jogo.getQuantidadeDisponivel() <= 0) {
+            throw new RuntimeException("Não há unidades disponíveis para o jogo: " + jogo.getNome());
+        }
+
+        jogo.setQuantidadeDisponivel(jogo.getQuantidadeDisponivel() - 1);
+        jogoRepository.save(jogo);
     }
 }
