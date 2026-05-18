@@ -65,4 +65,14 @@ public class JogoController {
     public ResponseEntity<JogoDTO> buscarPorId(@PathVariable("id") Long id) {
         return ResponseEntity.ok(jogoService.buscarJogoPorId(id));
     }
+
+    @PatchMapping("/{id}/decrementar-estoque")
+    @Operation(summary = "Decrementar Estoque do Jogo", description = "Deduz uma unidade disponível do jogo quando uma reserva é efetuada")
+    @ApiResponse(responseCode = "204", description = "Estoque reduzido com sucesso")
+    @ApiResponse(responseCode = "400", description = "Estoque esgotado")
+    @ApiResponse(responseCode = "404", description = "Jogo não encontrado")
+    public ResponseEntity<Void> decrementarEstoque(@PathVariable("id") Long id) {
+        jogoService.decrementarEstoque(id);
+        return ResponseEntity.noContent().build();
+    }
 }
