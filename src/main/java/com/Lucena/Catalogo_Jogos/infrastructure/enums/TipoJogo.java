@@ -1,4 +1,4 @@
-package com.Lucena.Catalogo_Jogos.infrastructure.entity;
+package com.Lucena.Catalogo_Jogos.infrastructure.enums;
 
 public enum TipoJogo {
     TABULEIRO,

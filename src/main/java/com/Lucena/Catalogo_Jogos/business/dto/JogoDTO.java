@@ -1,6 +1,6 @@
 package com.Lucena.Catalogo_Jogos.business.dto;
 
-import com.Lucena.Catalogo_Jogos.infrastructure.entity.TipoJogo;
+import com.Lucena.Catalogo_Jogos.infrastructure.enums.TipoJogo;
 import lombok.*;
 
 @Builder

@@ -1,7 +1,7 @@
 package com.Lucena.Catalogo_Jogos.infrastructure.repository;
 
 import com.Lucena.Catalogo_Jogos.infrastructure.entity.Jogo;
-import com.Lucena.Catalogo_Jogos.infrastructure.entity.TipoJogo;
+import com.Lucena.Catalogo_Jogos.infrastructure.enums.TipoJogo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

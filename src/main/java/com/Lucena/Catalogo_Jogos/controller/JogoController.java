@@ -67,7 +67,7 @@ public class JogoController {
     }
 
     @PatchMapping("/{id}/decrementar-estoque")
-    @Operation(summary = "Decrementar Estoque do Jogo", description = "Deduz uma unidade disponível do jogo quando uma reserva é efetuada")
+    @Operation(summary = "Decrementar Estoque do Jogo", description = "Decrementa uma unidade disponível do jogo quando uma reserva é efetuada")
     @ApiResponse(responseCode = "204", description = "Estoque reduzido com sucesso")
     @ApiResponse(responseCode = "400", description = "Estoque esgotado")
     @ApiResponse(responseCode = "404", description = "Jogo não encontrado")

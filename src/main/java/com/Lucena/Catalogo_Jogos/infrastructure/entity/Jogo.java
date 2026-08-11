@@ -1,5 +1,6 @@
 package com.Lucena.Catalogo_Jogos.infrastructure.entity;
 
+import com.Lucena.Catalogo_Jogos.infrastructure.enums.TipoJogo;
 import jakarta.persistence.*;
 import lombok.*;
 
